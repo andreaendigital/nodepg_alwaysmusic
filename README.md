@@ -63,6 +63,16 @@ Sugeridas:
 - Editar estudiante por rut: node index editar 1 andrea sql 2
 - Eliminar estudiante por rut: node index eliminar 1
 
+## Visuales 
+
+Imágenes de referencia para cada acción solicitada:
+
+- Consultar los estudiantes registrados:
+  
+![consulta_alwaysmusic](https://github.com/andreaendigital/nodepg_alwaysmusic/assets/154395788/165f6d21-e4ee-4b9e-adce-872db4f04c2e)
+
+
+
 ## Construido Con 🛠️
 
 Explica qué tecnologías usaste para construir este proyecto. Aquí algunos ejemplos:
