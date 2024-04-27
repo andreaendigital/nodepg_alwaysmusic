@@ -53,6 +53,7 @@ console.log("****************************");
 //----------------------------------------------------------------------
 //Funcion para consultar todos los estudiantes
 const listaEstudiantes = async () => {
+
   try {
     //Objeto JSON como argumento de consulta
     // propiedad para que lo que devuelva como respuesta el query sea un array solo
@@ -83,6 +84,11 @@ const listaEstudiantes = async () => {
 //Funcion para agregar un nuevo estudiante
 const nuevoEstudiante = async ({ rut, nombre, curso, nivel }) => {
   try {
+    //validación al ingresar rut
+    if (rut == undefined) {
+        return console.log(`El parámetro no puede estar vacío`);
+    }
+
     //Objeto JSON que será argumento de consulta con propiedad text que contiene sentencia SQL y propiedad values donde se definen los parámetros que recibirá la consulta.
     const objetoQuery = {
       text: `INSERT INTO ${tabla} (rut, nombre, curso, nivel ) values ($1, $2, $3, $4)  RETURNING *`, //consulta parametrizada
@@ -117,7 +123,7 @@ const nuevoEstudiante = async ({ rut, nombre, curso, nivel }) => {
 
 const consultaRut = async ({ rut }) => {
   try {
-    
+
     //validación al ingresar rut
     if (rut == undefined) {
         return console.log(`El parámetro no puede estar vacío`);
@@ -153,6 +159,12 @@ const consultaRut = async ({ rut }) => {
 
 const editarEstudiante = async ({ rut, nombre, curso, nivel }) => {
   try {
+
+    //validación al ingresar rut
+    if (rut == undefined) {
+        return console.log(`El parámetro no puede estar vacío`);
+    }
+
     //Objeto JSON que será argumento de consulta
     const objetoQuery = {
       text: `UPDATE ${tabla} SET nombre = $2, curso = $3, nivel = $4 WHERE rut = $1  RETURNING *`, //consulta parametrizada
@@ -184,6 +196,11 @@ const editarEstudiante = async ({ rut, nombre, curso, nivel }) => {
 
 const eliminarEstudiante = async ({ rut }) => {
   try {
+    //validación al ingresar rut
+    if (rut == undefined) {
+        return console.log(`El parámetro no puede estar vacío`);
+    }
+
     //Objeto JSON que será argumento de consulta
     const objetoQuery = {
       text: `DELETE FROM ${tabla} WHERE rut = $1 RETURNING *`, //consulta parametrizada
