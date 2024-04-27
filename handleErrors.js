@@ -32,6 +32,10 @@ function errors(code, status, message) {
             status = 500;
             message = "Error en el puerto de conexion a BD";
             break;
+        case 'ERR_SOCKET_BAD_PORT':
+            status = 500;
+            message = "El puerto excede su valor";
+            break;
         default:
             status = 500;
             message = "Error generico del Servidor";

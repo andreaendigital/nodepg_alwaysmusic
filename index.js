@@ -15,7 +15,7 @@ const pool = new Pool({
   host: "localhost",
   database: "alwaysmusic",
   password: "3434",
-  port: 5432,
+  port: 5432555555,
 });
 
 // console.log("Valor de pool , objeto que conecta a bd: ", pool);
@@ -85,7 +85,7 @@ const nuevoEstudiante = async ({ rut, nombre, curso, nivel }) => {
   try {
     //Objeto JSON que será argumento de consulta con propiedad text que contiene sentencia SQL y propiedad values donde se definen los parámetros que recibirá la consulta.
     const objetoQuery = {
-      text: `INSERT INTO ${tabla} (rut, nombre1, curso, nivel ) values ($1, $2, $3, $4)  RETURNING *`, //consulta parametrizada
+      text: `INSERT INTO ${tabla} (rut, nombre, curso, nivel ) values ($1, $2, $3, $4)  RETURNING *`, //consulta parametrizada
       values: [rut, nombre, curso, nivel],
     };
 
@@ -159,7 +159,7 @@ const editarEstudiante = async ({ rut, nombre, curso, nivel }) => {
       console.log(`No se encontró ningún estudiante con rut ${rut}`);
     } else {
       console.log(`Estudiante con rut ${rut} editado con éxito`);
-      console.log("Valor de res.rows:", result.rows[0]);
+      console.log("Registro Editado: ", result.rows[0]);
       // console.log("Detalle de estudiante editado: ", result.rows[0]);
       // console.log(result)
     }
