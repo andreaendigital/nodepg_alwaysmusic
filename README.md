@@ -63,7 +63,7 @@ Sugeridas:
 - Editar estudiante por rut: node index editar 1 andrea sql 2
 - Eliminar estudiante por rut: node index eliminar 1
 
-## Visuales 
+## Visuales :mage_woman:
 
 Imágenes de referencia para cada acción solicitada:
 
@@ -71,6 +71,28 @@ Imágenes de referencia para cada acción solicitada:
   
 ![consulta_alwaysmusic](https://github.com/andreaendigital/nodepg_alwaysmusic/assets/154395788/165f6d21-e4ee-4b9e-adce-872db4f04c2e)
 
+- Agregar nuevo estudiante:
+  
+![agregarnuevoalumno_alwaysmusic](https://github.com/andreaendigital/nodepg_alwaysmusic/assets/154395788/00f5d362-8655-4bad-b834-3a79c9412da0)
+
+- Editar estudiante:
+  
+![editaralumno_alwaysmusic](https://github.com/andreaendigital/nodepg_alwaysmusic/assets/154395788/a1e3e9e5-c7d5-4c3c-b583-3daa6f27a955)
+
+- Consultar por Rut de Estudiante:
+  
+![consultarut_alwaysmusic](https://github.com/andreaendigital/nodepg_alwaysmusic/assets/154395788/d2b9a35a-74af-49b9-a154-f576a18ad565)
+
+- Eliminar Estudiante:
+
+![eliminaralumno_alwaysmusic](https://github.com/andreaendigital/nodepg_alwaysmusic/assets/154395788/6f15ed72-7662-4f3e-83f0-2066eb3180eb)
+
+
+- Manejo de Errores:
+
+![errores1_alwaysmusic](https://github.com/andreaendigital/nodepg_alwaysmusic/assets/154395788/92f20488-aca3-4e39-ad27-0fe0b0390fb6)
+
+![errores2_alwaysmusic](https://github.com/andreaendigital/nodepg_alwaysmusic/assets/154395788/b1dcc2f6-4a5c-4ae5-a466-3b9e6c222612)
 
 
 ## Construido Con 🛠️
