@@ -4,7 +4,7 @@
 
 Proyecto donde se valida conocimientos de Paquete PG, Consultas con texto parametrizado, JSON como argumentos de consulta y captura de errores.
 
-Contexto: 
+### :scroll: Contexto :scroll:
 La escuela de música Always Music nunca dejó de utilizar excel como base de datos y ha decidido cambiar esto por un desarrollo personalizado.
 
 En este desafío deberás desarrollar una aplicación en Node que realice consultas a PostgreSQL con el paquete “pg” para:
