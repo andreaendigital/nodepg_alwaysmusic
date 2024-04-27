@@ -9,11 +9,11 @@ La escuela de música Always Music nunca dejó de utilizar excel como base de da
 
 En este desafío deberás desarrollar una aplicación en Node que realice consultas a PostgreSQL con el paquete “pg” para:
 
-● Agregar un nuevo estudiante.
-● Consultar los estudiantes registrados.
-● Consultar estudiante por rut.
-● Actualizar la información de un estudiante.
-● Eliminar el registro de un estudiante.
+- Agregar un nuevo estudiante.
+- Consultar los estudiantes registrados.
+- Consultar estudiante por rut.
+- Actualizar la información de un estudiante.
+- Eliminar el registro de un estudiante.
 
 Ya que el caso se trata de un proceso de desarrollo, la interacción la debes realizar con argumentos por la línea de comandos.
 Se solicitó hacer pruebas con el sistema de gestión con base de datos PostgreSQL, se dieron cuenta que no se podían hacer varias consultas de forma simultánea y que al intentar hacer una consulta errónea, no recibían ningún error, dejando la posibilidad de creer que un estudiante fue registrado y que esto no sea así.
