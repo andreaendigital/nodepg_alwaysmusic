@@ -59,7 +59,7 @@ const listaEstudiantes = async () => {
     // propiedad para que lo que devuelva como respuesta el query sea un array solo
     const result = await pool.query({
       rowMode: "array",
-      text: `SELECT * FROM ${tabla}`, //consulta parametrizada
+      text: `SELECT * FROM ${tabla}`,
     });
 
     if (result.rows != 0) {
