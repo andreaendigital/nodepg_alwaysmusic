@@ -63,7 +63,7 @@ Sugeridas:
 - Editar estudiante por rut: node index editar 1 andrea sql 2
 - Eliminar estudiante por rut: node index eliminar 1
 
-## Visuales 
+## Visuales :mage_woman:
 
 Imágenes de referencia para cada acción solicitada:
 
