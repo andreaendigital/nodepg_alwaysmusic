@@ -15,7 +15,7 @@ const pool = new Pool({
   host: "localhost",
   database: "alwaysmusic",
   password: "3434",
-  port: 5432555555,
+  port: 5432,
 });
 
 // console.log("Valor de pool , objeto que conecta a bd: ", pool);
@@ -117,6 +117,12 @@ const nuevoEstudiante = async ({ rut, nombre, curso, nivel }) => {
 
 const consultaRut = async ({ rut }) => {
   try {
+    
+    //validación al ingresar rut
+    if (rut == undefined) {
+        return console.log(`El parámetro no puede estar vacío`);
+    }
+
     //Objeto JSON que será argumento de consulta
     const objetoQuery = {
       text: `SELECT * FROM ${tabla} WHERE rut = $1`, //consulta parametrizada
