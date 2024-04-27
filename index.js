@@ -1,7 +1,7 @@
 //npm init --yes
 //npm i pg
 //importo del modulo handleErrors la funcion que maneja los errores
-const errors = require('./handleErrors.js');
+const errors = require("./handleErrors.js");
 
 //del pagquete pg requerimos solo clase pool, permite múltiples conexiones:
 const { Pool } = require("pg");
@@ -53,188 +53,158 @@ console.log("****************************");
 //----------------------------------------------------------------------
 //Funcion para consultar todos los estudiantes
 const listaEstudiantes = async () => {
-    try {
-        //Objeto JSON como argumento de consulta
-        // propiedad para que lo que devuelva como respuesta el query sea un array solo
-        const result = await pool.query({
-          rowMode: "array",
-          text: `SELECT * FROM ${tabla}`, //consulta parametrizada
-        });
-    
-        if (result.rows != 0) {
-            //si el número de filas es distinto a cero, mostrar el mensaje:
-            console.log("Número de Estudiantes registrados:", result.rowCount);
-            console.log("Registro actual de Estudiantes:", result.rows);
-        } 
-        else {
-            //si hay 0 filas mostrar mensaje:
-            console.log("No hay registros de estudiantes");
-        }
+  try {
+    //Objeto JSON como argumento de consulta
+    // propiedad para que lo que devuelva como respuesta el query sea un array solo
+    const result = await pool.query({
+      rowMode: "array",
+      text: `SELECT * FROM ${tabla}`, //consulta parametrizada
+    });
 
-    } 
-    catch (err) {
-        // console.log("Error General: ", err)
-        const final = errors(err.code, message);
-        console.log("Codigo de Error: ", final.code);
-        console.log("Status de Error: ", final.status);
-        console.log("Mensaje de Error: ", final.message);
-        console.log("Error Original: ", err.message);
+    if (result.rows != 0) {
+      //si el número de filas es distinto a cero, mostrar el mensaje:
+      console.log("Número de Estudiantes registrados:", result.rowCount);
+      console.log("Registro actual de Estudiantes:", result.rows);
+    } else {
+      //si hay 0 filas mostrar mensaje:
+      console.log("No hay registros de estudiantes");
     }
-}
+  } catch (err) {
+    console.log("Error General: ", err);
+    const final = errors(err.code, message);
+    console.log("Codigo de Error: ", final.code);
+    console.log("Status de Error: ", final.status);
+    console.log("Mensaje de Error: ", final.message);
+    console.log("Error Original: ", err.message);
+  }
+};
 
 //----------------------------------------------------------------------
 //Funcion para agregar un nuevo estudiante
 const nuevoEstudiante = async ({ rut, nombre, curso, nivel }) => {
-    try{
-        //Objeto JSON que será argumento de consulta con propiedad text que contiene sentencia SQL y propiedad values donde se definen los parámetros que recibirá la consulta.
-        const objetoQuery = {
-        text: `INSERT INTO ${tabla} (rut, nombre, curso, nivel ) values ($1, $2, $3, $4)  RETURNING *`, //consulta parametrizada
-        values: [rut, nombre, curso, nivel]
-        }
+  try {
+    //Objeto JSON que será argumento de consulta con propiedad text que contiene sentencia SQL y propiedad values donde se definen los parámetros que recibirá la consulta.
+    const objetoQuery = {
+      text: `INSERT INTO ${tabla} (rut, nombre1, curso, nivel ) values ($1, $2, $3, $4)  RETURNING *`, //consulta parametrizada
+      values: [rut, nombre, curso, nivel],
+    };
 
-        const result = await pool.query(objetoQuery); //objeto JSON como argumento de consulta
-        
-        //validación con operador ternario, si devuelve cero filas/registros envía mensaje que ya existe estudiante, de lo contrario, entrega mensaje de agregado con éxito
-        (result.rowCount == 0)
-            ? console.log("** Ya existe el estudiante con rut " + rut)
-            : console.log(`Estudiante con rut ${rut} y nombre ${nombre} agregado con éxito`);
+    const result = await pool.query(objetoQuery); //objeto JSON como argumento de consulta
 
-        //otras verificaciones
-        console.log("Registro Agregado: ", result.rows[0]); 
-        // console.log("Valor de res.rows:", result.rows);
-        // console.log("Valor de res.rowCount:", result.rowCount);
-    }
-    catch(err) {
+    //validación con operador ternario, si devuelve cero filas/registros envía mensaje que ya existe estudiante, de lo contrario, entrega mensaje de agregado con éxito
+    result.rowCount == 0
+      ? console.log("** Ya existe el estudiante con rut " + rut)
+      : console.log(
+          `Estudiante con rut ${rut} y nombre ${nombre} agregado con éxito`
+        );
 
-        // console.log("Error General: ", err)
-        const final = errors(err.code, status, message);
-        console.log("Codigo de Error: ", final.code);
-        console.log("Status de Error: ", final.status);
-        console.log("Mensaje de Error: ", final.message);
-        console.log("Error Original: ", err.message);
-    
-    }
+    //otras verificaciones
+    console.log("Registro Agregado: ", result.rows[0]);
+    // console.log("Valor de res.rows:", result.rows);
+    // console.log("Valor de res.rowCount:", result.rowCount);
+  } catch (err) {
+    // console.log("Error General: ", err)
+    const final = errors(err.code, status, message);
+    console.log("Codigo de Error: ", final.code);
+    console.log("Status de Error: ", final.status);
+    console.log("Mensaje de Error: ", final.message);
+    console.log("Error Original: ", err.message);
+  }
 };
-
-
- 
-
 
 //----------------------------------------------------------------------
 //Funcion para consultar por rut un estudiante
 
-const consultaRut = async ({rut}) => {
-    try{
-      
-        //Objeto JSON que será argumento de consulta
-        const objetoQuery = {
-        text: `SELECT * FROM ${tabla} WHERE rut = $1`, //consulta parametrizada
-        values: [rut]
-        }
+const consultaRut = async ({ rut }) => {
+  try {
+    //Objeto JSON que será argumento de consulta
+    const objetoQuery = {
+      text: `SELECT * FROM ${tabla} WHERE rut = $1`, //consulta parametrizada
+      values: [rut],
+    };
 
-        const result = await pool.query(objetoQuery); //objeto JSON como argumento de consulta
-              
-        //agregar manejo de errores para rut que no existe, si el registro no existe es un error lógico, se debe programar
-        if (result.rowCount == 0) {
-            console.log(`El Estudiante con Rut ${rut} no existe`);
-        } 
-        else {
-            console.log(`Estudiante con Rut ${rut} consultado:`);
-            console.log("Detalle de estudiante: ", result.rows[0]); 
-        }
+    const result = await pool.query(objetoQuery); //objeto JSON como argumento de consulta
 
+    //agregar manejo de errores para rut que no existe, si el registro no existe es un error lógico, se debe programar
+    if (result.rowCount == 0) {
+      console.log(`El Estudiante con Rut ${rut} no existe`);
+    } else {
+      console.log(`Estudiante con Rut ${rut} consultado:`);
+      console.log("Detalle de estudiante: ", result.rows[0]);
     }
-    catch(err) {
-
-        // console.log("Error General: ", err)
-        const final = errors(err.code, status, message);
-        console.log("Codigo de Error: ", final.code);
-        console.log("Status de Error: ", final.status);
-        console.log("Mensaje de Error: ", final.message);
-        console.log("Error Original: ", err.message);
-    
-    }
-
+  } catch (err) {
+    // console.log("Error General: ", err)
+    const final = errors(err.code, status, message);
+    console.log("Codigo de Error: ", final.code);
+    console.log("Status de Error: ", final.status);
+    console.log("Mensaje de Error: ", final.message);
+    console.log("Error Original: ", err.message);
+  }
 };
 
 //----------------------------------------------------------------------
 //Funcion para editar un estudiantes - actualizarlo
 
 const editarEstudiante = async ({ rut, nombre, curso, nivel }) => {
-    try{
-
-        //Objeto JSON que será argumento de consulta
-        const objetoQuery = {
-            text: `UPDATE ${tabla} SET nombre = $2, curso = $3, nivel = $4 WHERE rut = $1  RETURNING *`, //consulta parametrizada
-            values: [rut, nombre, curso, nivel] 
-        }
-
-        const result = await pool.query(objetoQuery); //objeto JSON como argumento de consulta
-
-        if(result.rowCount == 0) {
-            console.log(`No se encontró ningún estudiante con rut ${rut}`);
-        } 
-        else {
-            console.log(`Estudiante con rut ${rut} editado con éxito`);
-            console.log("Valor de res.rows:", result.rows[0]);
-            // console.log("Detalle de estudiante editado: ", result.rows[0]);
-            // console.log(result)
-        }
-    
-    }
-    catch(err) {
-
-        // console.log("Error General: ", err)
-        const final = errors(err.code, status, message);
-        console.log("Codigo de Error: ", final.code);
-        console.log("Status de Error: ", final.status);
-        console.log("Mensaje de Error: ", final.message);
-        console.log("Error Original: ", err.message);
-    
-    }
-    
+  try {
+    //Objeto JSON que será argumento de consulta
+    const objetoQuery = {
+      text: `UPDATE ${tabla} SET nombre = $2, curso = $3, nivel = $4 WHERE rut = $1  RETURNING *`, //consulta parametrizada
+      values: [rut, nombre, curso, nivel],
     };
+
+    const result = await pool.query(objetoQuery); //objeto JSON como argumento de consulta
+
+    if (result.rowCount == 0) {
+      console.log(`No se encontró ningún estudiante con rut ${rut}`);
+    } else {
+      console.log(`Estudiante con rut ${rut} editado con éxito`);
+      console.log("Valor de res.rows:", result.rows[0]);
+      // console.log("Detalle de estudiante editado: ", result.rows[0]);
+      // console.log(result)
+    }
+  } catch (err) {
+    // console.log("Error General: ", err)
+    const final = errors(err.code, status, message);
+    console.log("Codigo de Error: ", final.code);
+    console.log("Status de Error: ", final.status);
+    console.log("Mensaje de Error: ", final.message);
+    console.log("Error Original: ", err.message);
+  }
+};
 
 //----------------------------------------------------------------------
 //Funcion para eliminar un estudiante
 
 const eliminarEstudiante = async ({ rut }) => {
-    try{
-        //Objeto JSON que será argumento de consulta
-        const objetoQuery = {
-            text : `DELETE FROM ${tabla} WHERE rut = $1 RETURNING *`, //consulta parametrizada
-            values : [rut]
-        }
+  try {
+    //Objeto JSON que será argumento de consulta
+    const objetoQuery = {
+      text: `DELETE FROM ${tabla} WHERE rut = $1 RETURNING *`, //consulta parametrizada
+      values: [rut],
+    };
 
-        const res = await pool.query(objetoQuery); //objeto JSON como argumento de consulta
-   
-        //agregar manejo de errores para rut que no existe, si el registro no existe es un error lógico, se debe programar
-        if (res.rowCount == 0) {
-            console.log("** No existe el estudiante con rut " + rut)
-        } else {
-            console.log(`Estudiante con rut: ${rut} eliminado`);
-            console.log("Registro respectivo Eliminado: ", res.rows[0]);
-        }
+    const res = await pool.query(objetoQuery); //objeto JSON como argumento de consulta
 
-        // console.log("Valor de res.rows:", res.rows);
-        // console.log("Valor de res.rowCount:", res.rowCount);
+    //agregar manejo de errores para rut que no existe, si el registro no existe es un error lógico, se debe programar
+    if (res.rowCount == 0) {
+      console.log("** No existe el estudiante con rut " + rut);
+    } else {
+      console.log(`Estudiante con rut: ${rut} eliminado`);
+      console.log("Registro respectivo Eliminado: ", res.rows[0]);
     }
-    catch(err) {
 
-        // console.log("Error General: ", err)
-        const final = errors(err.code, status, message);
-        console.log("Codigo de Error: ", final.code);
-        console.log("Status de Error: ", final.status);
-        console.log("Mensaje de Error: ", final.message);
-        console.log("Error Original: ", err.message);
-    
-    }
+    // console.log("Valor de res.rows:", res.rows);
+    // console.log("Valor de res.rowCount:", res.rowCount);
+  } catch (err) {
+    // console.log("Error General: ", err)
+    const final = errors(err.code, status, message);
+    console.log("Codigo de Error: ", final.code);
+    console.log("Status de Error: ", final.status);
+    console.log("Mensaje de Error: ", final.message);
+    console.log("Error Original: ", err.message);
+  }
 };
-
-
-
-
-
 
 // Funcion IIFE que recibe de la linea de comando y llama funciones asincronas internas
 (() => {

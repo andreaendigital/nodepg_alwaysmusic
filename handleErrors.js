@@ -4,6 +4,10 @@ function errors(code, status, message) {
             status = 500;
             message = "Error de Sintaxis, revise el código por favor";
             break;
+        case '42703':
+            status = 500;
+            message = "Error de Sintaxis en alguna columna o parámetro, revisar el código por favor";
+            break;    
         case '23505':
             status = 400;
             message = "Ya existe la ID a ingresar";
