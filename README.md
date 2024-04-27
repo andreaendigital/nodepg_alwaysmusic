@@ -68,7 +68,7 @@ Sugeridas:
 Explica qué tecnologías usaste para construir este proyecto. Aquí algunos ejemplos:
 
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - El lenguaje utilizado
-- [PG]([https://www.npmjs.com/package/pg])- Node paquete PG
+- [PG](https://www.npmjs.com/package/pg)- Node paquete PG
   
 
 ## Autor ⚡ 
