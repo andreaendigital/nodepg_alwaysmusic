@@ -161,7 +161,7 @@ const editarEstudiante = async ({ rut, nombre, curso, nivel }) => {
   try {
 
     //validación al ingresar rut
-    if (rut == undefined) {
+    if (rut == undefined || nombre == undefined || curso == undefined || nivel == undefined) {
         return console.log(`El parámetro no puede estar vacío`);
     }
 
