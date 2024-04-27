@@ -1,0 +1,15 @@
+{
+  "name": "tarea1_alwaysmusic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Andrea Rosero",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.11.5"
+  }
+}
